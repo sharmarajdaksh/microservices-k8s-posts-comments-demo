@@ -1,0 +1,13 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: posts-nodeport
+spec:
+  selector:
+    app: posts
+  type: NodePort
+  ports:
+    - name: posts
+      protocol: TCP
+      port: 4000 # Service port
+      targetPort: 4000 # Container port

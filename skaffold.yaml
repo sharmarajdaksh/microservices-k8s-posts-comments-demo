@@ -1,0 +1,60 @@
+apiVersion: skaffold/v2beta16
+kind: Config
+metadata:
+  name: starterproject
+deploy:
+  kubectl:
+    manifests:
+      - infra/k8s/*
+build:
+  local:
+    push: false
+  artifacts:
+    - image: sharmarajdaksh/kubestarter/client
+      context: client
+      docker:
+        dockerfile: Dockerfile
+      sync:
+        manual:
+          - src: "src/**/*.js"
+            dest: .
+    - image: sharmarajdaksh/kubestarter/posts
+      context: posts
+      docker:
+        dockerfile: Dockerfile
+      sync:
+        manual:
+          - src: "*.js"
+            dest: .
+    - image: sharmarajdaksh/kubestarter/comments
+      context: comments
+      docker:
+        dockerfile: Dockerfile
+      sync:
+        manual:
+          - src: "*.js"
+            dest: .
+    - image: sharmarajdaksh/kubestarter/query
+      context: query
+      docker:
+        dockerfile: Dockerfile
+      sync:
+        manual:
+          - src: "*.js"
+            dest: .
+    - image: sharmarajdaksh/kubestarter/moderation
+      context: moderation
+      docker:
+        dockerfile: Dockerfile
+      sync:
+        manual:
+          - src: "*.js"
+            dest: .
+    - image: sharmarajdaksh/kubestarter/event-bus
+      context: event-bus
+      docker:
+        dockerfile: Dockerfile
+      sync:
+        manual:
+          - src: "*.js"
+            dest: .
